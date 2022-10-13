@@ -1,13 +1,27 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Layout from "@/layout/index.vue";
 import HomeView from "@/views/home/HomeView.vue";
+const filterModule = () => {
+  const modulesGlob = import.meta.glob("@/views/pages/**/**.vue", {
+    eager: true,
+  });
+  return Object.keys(modulesGlob).map((item) => ({
+    path: item.replace("/src/views/pages/", "").replace(".vue", "").replaceAll("/", "-"),
+    name: item
+      .replace("/src/views/pages/", "")
+      .replace(".vue", "")
+      .replaceAll("/", "-"),
+    component: (modulesGlob[item] as any).default,
+  }));
+};
+const dynamicRouter: any[] = filterModule();
 const constRoutes = [
   {
     path: "/",
     name: "root",
     component: Layout,
     redirect: "/home",
-    children: [
+    children: dynamicRouter.concat([
       {
         path: "/home",
         name: "home",
@@ -36,12 +50,12 @@ const constRoutes = [
           index: "2",
         },
       },
-    ],
+    ]),
   },
   {
-    path: '/login',
-    name:'login',
-    component: () => import('@/views/login/login.vue')
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/login/login.vue"),
   },
 ];
 

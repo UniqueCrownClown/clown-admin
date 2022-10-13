@@ -5,7 +5,7 @@
   </el-radio-group>
   <el-menu
     router
-    default-active="2"
+    default-active="home"
     class="el-menu-vertical-demo"
     :collapse="isCollapse"
   >
@@ -22,11 +22,6 @@
         <el-icon><location /></el-icon>
         <span>Navigator One</span>
       </template>
-      <el-menu-item-group>
-        <template #title><span>Group One</span></template>
-        <el-menu-item index="1-1">1-1</el-menu-item>
-        <el-menu-item index="1-2">1-2</el-menu-item>
-      </el-menu-item-group>
       <el-sub-menu index="1-3">
         <template #title><span>item four</span></template>
         <el-menu-item index="1-3-1">item one</el-menu-item>
@@ -43,4 +38,24 @@ import {
 } from "@element-plus/icons-vue";
 import { ref } from "vue";
 const isCollapse = ref(true);
+const menuArr = ref([
+  {
+    name: "首页",
+    path: "home",
+  },
+  {
+    name: "About",
+    path: "about",
+  },
+  {
+    name: "navigator1",
+    path: "navigator1",
+    children: [
+      {
+        name: "navigator1-1",
+        path: "navigator1-1",
+      },
+    ],
+  },
+]);
 </script>

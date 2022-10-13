@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "jsx": "preserve"
+  },
   "files": [],
   "references": [
     {
@@ -10,5 +13,7 @@
     {
       "path": "./tsconfig.vitest.json"
     }
-  ]
+  ],
+  "typeRoots": ["./node_modules/@types/", "./types"],
+  "includes": ["types/**/*.d.ts"]
 }

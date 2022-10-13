@@ -14,7 +14,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import navBar from "./navBar.vue";
+import navBar from "./navBar";
 import mainView from "./mainView.vue";
 </script>
 <style lang="scss" scoped>
