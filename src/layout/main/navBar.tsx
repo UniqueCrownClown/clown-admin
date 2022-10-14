@@ -1,6 +1,6 @@
 import { defineComponent, ref } from "vue";
 
-const NavBar = defineComponent({
+const NavBar:any = defineComponent({
   name: "navBar",
   props: {},
   setup() {

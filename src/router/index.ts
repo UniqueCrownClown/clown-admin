@@ -6,7 +6,10 @@ const filterModule = () => {
     eager: true,
   });
   return Object.keys(modulesGlob).map((item) => ({
-    path: item.replace("/src/views/pages/", "").replace(".vue", "").replaceAll("/", "-"),
+    path: item
+      .replace("/src/views/pages/", "")
+      .replace(".vue", "")
+      .replaceAll("/", "-"),
     name: item
       .replace("/src/views/pages/", "")
       .replace(".vue", "")
@@ -63,5 +66,13 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: constRoutes,
 });
-
+// 删除/重置路由
+export function resetRoute(): void {
+  router.getRoutes().forEach((route) => {
+    const { name } = route;
+    if (name) {
+      router.hasRoute(name) && router.removeRoute(name);
+    }
+  });
+}
 export default router;
