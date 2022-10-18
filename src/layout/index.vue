@@ -18,5 +18,10 @@ const layout = Main;
   :deep(.layout-aside-width-default) {
     width: 200px !important;
   }
+  z-index: 0;
+  background-color: var(--gl-content-background-color);
+  .navigation-container {
+    z-index: 0;
+  }
 }
 </style>

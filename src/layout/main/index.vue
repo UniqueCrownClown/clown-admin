@@ -1,16 +1,33 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header>
+      <el-header style="padding-top: 12px; border-bottom: 1px solid #ccc">
         <el-row class="demo-avatar demo-basic">
           <el-col :span="20">
             <h3>clown-admin-template</h3>
           </el-col>
           <el-col :span="2">
-            <el-avatar :size="36" :src="circleUrl" />
+            <el-switch
+              size="large"
+              v-model="mode"
+              :active-value="ThemeMode.DARK"
+              :inactive-value="ThemeMode.LIGHT"
+              style="--el-switch-on-color: #222; --el-switch-off-color: #e2e2e2"
+              inline-prompt
+              active-text="黑"
+              inactive-text="亮"
+            />
           </el-col>
           <el-col :span="2">
-            <el-button @click="toLogin">logout</el-button>
+            <el-dropdown style="float: right">
+              <el-avatar :size="36" :src="circleUrl" />
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item>设置</el-dropdown-item>
+                  <el-dropdown-item @click="toLogin">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </el-col>
         </el-row>
       </el-header>
@@ -27,10 +44,13 @@
 </template>
 <script setup lang="ts">
 import navBar from "./navBar";
+// import navBar from "./navBar.vue";
 import mainView from "./mainView.vue";
-import { reactive, toRefs } from "vue";
+import { computed, reactive, ref, toRefs } from "vue";
 import router, { resetRoute } from "@/router";
-
+import { ThemeMode } from '@/utils/dictionary'
+import { useThemeStore } from "@/stores/modules/theme";
+const themeStore = useThemeStore();
 const state = reactive({
   circleUrl:
     "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
@@ -41,6 +61,14 @@ const toLogin = () => {
   });
 };
 const { circleUrl } = toRefs(state);
+const mode = computed({
+  get: () => {
+    return themeStore.mode;
+  },
+  set: (val) => {
+    themeStore.setMode(val);
+  },
+});
 </script>
 <style lang="scss" scoped>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
