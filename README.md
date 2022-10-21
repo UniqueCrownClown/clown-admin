@@ -57,3 +57,10 @@ npm run test:e2e # or `npm run test:e2e:ci` for headless testing
 ```sh
 npm run lint
 ```
+
+### 构建说明
+
+router和tab的pinia怎么实现同步的
+
+onBeforeRouteUpdate
+onBeforeRouteLeave

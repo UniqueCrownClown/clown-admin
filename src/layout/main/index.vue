@@ -33,9 +33,10 @@
       </el-header>
       <el-container>
         <el-aside width="200px">
-          <navBar />
+          <sideBar />
         </el-aside>
         <el-main>
+          <tabBar />
           <mainView />
         </el-main>
       </el-container>
@@ -43,12 +44,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import navBar from "./navBar";
-// import navBar from "./navBar.vue";
+import sideBar from "./sideBar";
+// import sideBar from "./sideBar.vue";
+import tabBar from "./tabBar.vue"
 import mainView from "./mainView.vue";
 import { computed, reactive, ref, toRefs } from "vue";
 import router, { resetRoute } from "@/router";
-import { ThemeMode } from '@/utils/dictionary'
+import { ThemeMode } from "@/utils/dictionary";
 import { useThemeStore } from "@/stores/modules/theme";
 const themeStore = useThemeStore();
 const state = reactive({

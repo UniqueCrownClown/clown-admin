@@ -1,7 +1,9 @@
+import { useTabsStore } from "@/stores/modules/tabs";
+import { storeToRefs } from "pinia";
 import { defineComponent, ref } from "vue";
 
-const NavBar: any = defineComponent({
-  name: "navBar",
+const sideBar: any = defineComponent({
+  name: "sideBar",
   props: {},
   setup() {
     const isCollapse = ref<boolean>(false);
@@ -15,18 +17,30 @@ const NavBar: any = defineComponent({
       {
         name: "首页",
         path: "home",
+        meta: {
+          id: "home",
+        },
       },
       {
-        name: "About",
+        name: "关于",
         path: "about",
+        meta: {
+          id: "about",
+        },
       },
       {
         name: "testmodule",
         path: "testmodule",
+        meta: {
+          id: "testmodule",
+        },
         children: [
           {
             name: "test1",
             path: "testmodule-test1",
+            meta: {
+              id: "test1",
+            },
           },
         ],
       },
@@ -49,7 +63,7 @@ const NavBar: any = defineComponent({
         if (item.children) {
           container.push(
             <el-sub-menu
-              index={item.path}
+              index={`${item.path}-${item.meta.id}`}
               v-slots={{
                 default: () => renderMenu(item.children, []),
                 title: () => (
@@ -64,7 +78,7 @@ const NavBar: any = defineComponent({
         } else {
           container.push(
             <el-menu-item
-              index={item.path}
+              index={`${item.path}-${item.meta.id}`}
               v-slots={{
                 default: () => svgIcon(),
                 title: () => item.name,
@@ -76,16 +90,19 @@ const NavBar: any = defineComponent({
       return container;
     };
     const result = renderMenu(menuArr.value);
+    const tabsStore = useTabsStore();
+    const { active } = storeToRefs(tabsStore);
     const menuMain = () => (
       <el-menu
         router
-        default-active="home"
+        default-active={active}
         class="el-menu-vertical-demo"
         collapse={isCollapse.value}
       >
         {result}
       </el-menu>
     );
+
     return () => (
       <>
         {collapseBtn()}
@@ -95,4 +112,4 @@ const NavBar: any = defineComponent({
   },
 });
 
-export default NavBar;
+export default sideBar;

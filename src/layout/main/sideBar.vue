@@ -5,7 +5,7 @@
   </el-radio-group>
   <el-menu
     router
-    default-active="home"
+    :default-active="active"
     class="el-menu-vertical-demo"
     :collapse="isCollapse"
   >
@@ -30,13 +30,11 @@
   </el-menu>
 </template>
 <script lang="ts" setup>
-import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
-} from "@element-plus/icons-vue";
+import { Menu as IconMenu, Location } from "@element-plus/icons-vue";
+import { useTabsStore } from "@/stores/modules/tabs";
 import { ref } from "vue";
+import { storeToRefs } from "pinia";
+const tabsStore = useTabsStore();
 const isCollapse = ref(true);
 const menuArr = ref([
   {
@@ -44,7 +42,7 @@ const menuArr = ref([
     path: "home",
   },
   {
-    name: "About",
+    name: "关于",
     path: "about",
   },
   {
@@ -58,4 +56,5 @@ const menuArr = ref([
     ],
   },
 ]);
+const { active } = storeToRefs(tabsStore);
 </script>

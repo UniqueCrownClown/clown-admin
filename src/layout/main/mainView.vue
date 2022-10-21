@@ -12,5 +12,5 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-const keepAliveNameList = ref([]);
+const keepAliveNameList = ref(/about/);
 </script>
