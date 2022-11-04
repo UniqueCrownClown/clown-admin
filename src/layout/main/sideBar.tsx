@@ -4,15 +4,19 @@ import { defineComponent, ref } from "vue";
 
 const sideBar: any = defineComponent({
   name: "sideBar",
-  props: {},
-  setup() {
-    const isCollapse = ref<boolean>(false);
-    const collapseBtn = () => (
-      <el-radio-group v-model={isCollapse.value} style="margin-bottom: 20px">
-        <el-radio-button label={false}>expand</el-radio-button>
-        <el-radio-button label={true}>collapse</el-radio-button>
-      </el-radio-group>
-    );
+  props: {
+    isCollapse: {
+      default: () => false,
+    },
+  },
+  setup(props) {
+    // const isCollapse = ref<boolean>(false);
+    // const collapseBtn = () => (
+    //   <el-radio-group v-model={isCollapse.value} style="margin-bottom: 20px">
+    //     <el-radio-button label={false}>expand</el-radio-button>
+    //     <el-radio-button label={true}>collapse</el-radio-button>
+    //   </el-radio-group>
+    // );
     const menuArr = ref([
       {
         name: "首页",
@@ -40,6 +44,13 @@ const sideBar: any = defineComponent({
             path: "testmodule-test1",
             meta: {
               id: "test1",
+            },
+          },
+          {
+            name: "test2",
+            path: "testmodule-test2",
+            meta: {
+              id: "test2",
             },
           },
         ],
@@ -97,18 +108,13 @@ const sideBar: any = defineComponent({
         router
         default-active={active}
         class="el-menu-vertical-demo"
-        collapse={isCollapse.value}
+        collapse={props.isCollapse}
       >
         {result}
       </el-menu>
     );
 
-    return () => (
-      <>
-        {collapseBtn()}
-        {menuMain()}
-      </>
-    );
+    return () => <>{menuMain()}</>;
   },
 });
 

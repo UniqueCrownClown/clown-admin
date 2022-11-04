@@ -1,5 +1,5 @@
 <template>
-  <div class="h100">
+  <div class="tab-main-container">
     <router-view v-slot="{ Component }">
       <transition name="slide-right" mode="out-in">
         <keep-alive :include="keepAliveNameList">
@@ -14,3 +14,9 @@ import { ref } from "vue";
 
 const keepAliveNameList = ref(/about/);
 </script>
+<style lang="scss">
+.tab-main-container {
+  height: calc(100% - 50px);
+  background-color: var(--el-menu-bg-color);
+}
+</style>

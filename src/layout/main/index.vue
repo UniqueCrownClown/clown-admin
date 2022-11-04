@@ -32,8 +32,9 @@
         </el-row>
       </el-header>
       <el-container>
-        <el-aside width="200px">
-          <sideBar />
+        <i class="menu-collapse-btn" @click="handleCollapse">{{isCollapse?"<":">"}}</i>
+        <el-aside :width="autoWidth" class="side-aside">
+          <sideBar :isCollapse="isCollapse" />
         </el-aside>
         <el-main>
           <tabBar />
@@ -46,7 +47,7 @@
 <script setup lang="ts">
 import sideBar from "./sideBar";
 // import sideBar from "./sideBar.vue";
-import tabBar from "./tabBar.vue"
+import tabBar from "./tabBar.vue";
 import mainView from "./mainView.vue";
 import { computed, reactive, ref, toRefs } from "vue";
 import router, { resetRoute } from "@/router";
@@ -71,10 +72,44 @@ const mode = computed({
     themeStore.setMode(val);
   },
 });
+const isCollapse = ref<boolean>(false);
+const autoWidth = computed(() => {
+  if (isCollapse.value) {
+    return "60px";
+  }
+  return "200px";
+});
+const handleCollapse = () => {
+  isCollapse.value = !isCollapse.value;
+};
 </script>
 <style lang="scss" scoped>
+.common-layout {
+  width: 100vw;
+  height: 100vh;
+  ::v-deep .el-container {
+    height: 100%;
+  }
+}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
+}
+.side-aside {
+  background-color: var(--el-menu-bg-color);
+}
+.menu-collapse-btn{
+    background-color: var(--el-menu-bg-color);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--el-menu-active-color);
+    position: absolute;
+    z-index: 99;
+    top: 60px;
+    left: v-bind(autoWidth);
+    height: 36px;
+    width: 18px;
+    text-align: center;
+    cursor: pointer;
 }
 </style>
