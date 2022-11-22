@@ -1,3 +1,4 @@
+import { useMenuStore } from "@/stores/modules/menu";
 import { useTabsStore } from "@/stores/modules/tabs";
 import { storeToRefs } from "pinia";
 import { defineComponent, ref } from "vue";
@@ -10,52 +11,8 @@ const sideBar: any = defineComponent({
     },
   },
   setup(props) {
-    // const isCollapse = ref<boolean>(false);
-    // const collapseBtn = () => (
-    //   <el-radio-group v-model={isCollapse.value} style="margin-bottom: 20px">
-    //     <el-radio-button label={false}>expand</el-radio-button>
-    //     <el-radio-button label={true}>collapse</el-radio-button>
-    //   </el-radio-group>
-    // );
-    const menuArr = ref([
-      {
-        name: "首页",
-        path: "home",
-        meta: {
-          id: "home",
-        },
-      },
-      {
-        name: "关于",
-        path: "about",
-        meta: {
-          id: "about",
-        },
-      },
-      {
-        name: "testmodule",
-        path: "testmodule",
-        meta: {
-          id: "testmodule",
-        },
-        children: [
-          {
-            name: "test1",
-            path: "testmodule-test1",
-            meta: {
-              id: "test1",
-            },
-          },
-          {
-            name: "test2",
-            path: "testmodule-test2",
-            meta: {
-              id: "test2",
-            },
-          },
-        ],
-      },
-    ]);
+    const menuStore = useMenuStore();
+    const { menu } = storeToRefs(menuStore);
     const svgIcon = () => (
       <svg
         style="width: 1em; height: 1em; margin-right: 8px"
@@ -69,18 +26,18 @@ const sideBar: any = defineComponent({
         ></path>
       </svg>
     );
-    const renderMenu = (menuArr: any, container: JSX.Element[] = []) => {
-      menuArr.map((item: any) => {
+    const renderMenu = (menu: any, container: JSX.Element[] = []) => {
+      menu.map((item: any) => {
         if (item.children) {
           container.push(
             <el-sub-menu
-              index={`${item.path}-${item.meta.id}`}
+              index={`${item.path}`}
               v-slots={{
                 default: () => renderMenu(item.children, []),
                 title: () => (
                   <>
                     {svgIcon()}
-                    <span>{item.name}</span>
+                    <span>{item.meta.title_cn || item.name}</span>
                   </>
                 ),
               }}
@@ -89,10 +46,10 @@ const sideBar: any = defineComponent({
         } else {
           container.push(
             <el-menu-item
-              index={`${item.path}-${item.meta.id}`}
+              index={`${item.path}`}
               v-slots={{
                 default: () => svgIcon(),
-                title: () => item.name,
+                title: () => item.meta.title_cn || item.name,
               }}
             ></el-menu-item>
           );
@@ -100,7 +57,7 @@ const sideBar: any = defineComponent({
       });
       return container;
     };
-    const result = renderMenu(menuArr.value);
+    const result = renderMenu(menu.value);
     const tabsStore = useTabsStore();
     const { active } = storeToRefs(tabsStore);
     const menuMain = () => (

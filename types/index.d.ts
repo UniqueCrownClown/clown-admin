@@ -30,7 +30,7 @@ declare module "*.vue" {
   export default Component;
 }
 
-declare module "nprogress";
+// declare module "nprogress"
 declare module "@iconify/vue";
 declare module "element-plus";
 declare module "js-cookie";

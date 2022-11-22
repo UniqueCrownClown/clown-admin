@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
     <el-tabs
       v-model="activeName"
       type="card"

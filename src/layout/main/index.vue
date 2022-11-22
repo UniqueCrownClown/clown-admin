@@ -32,7 +32,9 @@
         </el-row>
       </el-header>
       <el-container>
-        <i class="menu-collapse-btn" @click="handleCollapse">{{isCollapse?"<":">"}}</i>
+        <i class="menu-collapse-btn" @click="handleCollapse">{{
+          isCollapse ? "<" : ">"
+        }}</i>
         <el-aside :width="autoWidth" class="side-aside">
           <sideBar :isCollapse="isCollapse" />
         </el-aside>
@@ -87,7 +89,8 @@ const handleCollapse = () => {
 .common-layout {
   width: 100vw;
   height: 100vh;
-  ::v-deep .el-container {
+  overflow: hidden;
+  :deep(.el-container) {
     height: 100%;
   }
 }
@@ -98,18 +101,18 @@ const handleCollapse = () => {
 .side-aside {
   background-color: var(--el-menu-bg-color);
 }
-.menu-collapse-btn{
-    background-color: var(--el-menu-bg-color);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--el-menu-active-color);
-    position: absolute;
-    z-index: 99;
-    top: 60px;
-    left: v-bind(autoWidth);
-    height: 36px;
-    width: 18px;
-    text-align: center;
-    cursor: pointer;
+.menu-collapse-btn {
+  background-color: var(--el-menu-bg-color);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--el-menu-active-color);
+  position: absolute;
+  z-index: 99;
+  top: 60px;
+  left: v-bind(autoWidth);
+  height: 36px;
+  width: 18px;
+  text-align: center;
+  cursor: pointer;
 }
 </style>

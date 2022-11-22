@@ -62,6 +62,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 const toHome = () => {
+  localStorage.setItem("token","12345678");
   router.push({
     //传递参数使用query的话，指定path或者name都行，但使用params的话，只能使用name指定
     path: "/",

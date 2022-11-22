@@ -60,7 +60,7 @@ export const useTabsStore = defineStore("tabs", {
         };
         this.tabs.push(tab);
       }
-      this.active = val;
+      this.active = "/" + val;
     },
     /**
      * 删除tabs
