@@ -14,4 +14,16 @@ export default defineConfig({
       "@": resolve("src"),
     },
   },
+  server: {
+    host: "0.0.0.0",
+    proxy: {
+      "^/dev-basic-api": {
+        target: `http://127.0.0.1:5000`,
+        changeOrigin: true, // target是域名的话，需要这个参数，
+        secure: false, // 设置支持https协议的代理
+        ws: false,
+        rewrite: (path) => path.replace(/^\/dev-basic-api/, ""),
+      },
+    },
+  },
 });
