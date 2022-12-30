@@ -10,15 +10,20 @@ interface IProduct {
   image: string;
   description: string;
 }
-
-const multipleTableRef = ref<InstanceType<typeof ElTable>>();
-const multipleSelection = ref<IProduct[]>([]);
-const handleSelectionChange = (val: IProduct[]) => {
-  multipleSelection.value = val;
-  currentId = (val[0] as any)?.id;
+type IProductRes = IProduct & {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
 };
 
-let currentId: string = "";
+const multipleTableRef = ref<InstanceType<typeof ElTable>>();
+const multipleSelection = ref<IProductRes[]>([]);
+const handleSelectionChange = (val: IProductRes[]) => {
+  multipleSelection.value = val;
+  currentId = val[0]?.id;
+};
+
+let currentId: number = -1;
 const tableData = ref<IProduct[]>([]);
 
 const isNew = ref(true);
@@ -34,7 +39,8 @@ const form = reactive({
 });
 const fetchData = async () => {
   try {
-    const res: any = await testprisma.product.proRequest();
+    const res: myLib.IResponseData<IProductRes[]> =
+      await testprisma.product.proRequest();
     console.log(res);
     if (res?.code === 200) {
       tableData.value = res?.data;
@@ -51,16 +57,15 @@ const dialogConfirm = async () => {
   };
   try {
     if (isNew.value) {
-      const res: any = await testprisma.product.addProRequest(params);
+      const res: myLib.IResponseData<IProductRes> =
+        await testprisma.product.addProRequest(params);
       if (res?.code === 200) {
         dialogFormVisible.value = false;
         fetchData();
       }
     } else {
-      const res: any = await testprisma.product.updateProRequest(
-        currentId,
-        params
-      );
+      const res: myLib.IResponseData<IProductRes> =
+        await testprisma.product.updateProRequest(currentId, params);
       if (res?.code === 200) {
         dialogFormVisible.value = false;
         fetchData();
@@ -82,9 +87,10 @@ const addProduct = async () => {
   dialogFormVisible.value = true;
 };
 const delProduct = async () => {
-  const ids = multipleSelection.value.map((item) => (item as any).id).join(",");
+  const ids = multipleSelection.value.map((item) => item.id).join(",");
   try {
-    const res: any = await testprisma.product.delProRequest(ids);
+    const res: myLib.IResponseData<IProductRes[]> =
+      await testprisma.product.delProRequest(ids);
     if (res?.code === 200) {
       fetchData();
       ElMessage({
