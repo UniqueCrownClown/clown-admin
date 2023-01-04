@@ -16,7 +16,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [formsPlugin],
+  // plugins: [formsPlugin],
   extract: {
     include: ["src/**/*.{vue,html,jsx,tsx}"],
     exclude: ["node_modules", ".git"],

@@ -64,3 +64,6 @@ router和tab的pinia怎么实现同步的
 
 onBeforeRouteUpdate
 onBeforeRouteLeave
+
+### 搭配使用
+(clown-nest-prisma)[https://github.com/UniqueCrownClown/clown-nest-prisma]

@@ -3,6 +3,10 @@ interface LoginParams {
   name: string;
   password: string;
 }
-export function loginRequest(params: LoginParams) {
-  return service.post('/login', params);
+export function signinRequest(params: LoginParams) {
+  return service.post("/auth/signin", params);
+}
+
+export function signupRequest(params: LoginParams) {
+  return service.post("/auth/signup", params);
 }

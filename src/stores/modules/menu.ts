@@ -76,6 +76,21 @@ const menu = [
     },
     children: [
       {
+        name: "userList",
+        url: "/src/views/pages/testprisma/userList/userList.vue",
+        path: "/user-list",
+        meta: {
+          id: "userList",
+          auth: ["admin", "test"],
+          icon: "carbon:rule-test",
+          isAffix: true,
+          isHide: false,
+          isKeepAlive: true,
+          title_cn: "用户管理",
+          title_en: "userList",
+        },
+      },
+      {
         name: "productManage",
         url: "/src/views/pages/testprisma/productManage/productManage.vue",
         path: "/product-manage",

@@ -32,7 +32,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { FormInstance } from "element-plus";
+import { FormInstance } from "element-plus/es/components/form";
 import { reactive, ref } from "vue";
 
 const ruleFormRef = ref<FormInstance>();
