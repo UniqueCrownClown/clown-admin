@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
 import { ElMessage, ElTable } from "element-plus";
-import testprisma from "@/api/testprisma";
+import { orderReq } from "@/api/testprisma";
 
 interface IOrder {
   amount: string;
@@ -28,7 +28,7 @@ const form = reactive({
 });
 const fetchData = async () => {
   try {
-    const res: any = await testprisma.order.orderRequest();
+    const res: any = await orderReq.orderRequest();
     console.log(res);
     if (res?.code === 200) {
       tableData.value = res?.data;
@@ -44,16 +44,13 @@ const dialogConfirm = async () => {
   };
   try {
     if (isNew.value) {
-      const res: any = await testprisma.order.addOrderRequest(params);
+      const res: any = await orderReq.addOrderRequest(params);
       if (res?.code === 200) {
         dialogFormVisible.value = false;
         fetchData();
       }
     } else {
-      const res: any = await testprisma.order.updateOrderRequest(
-        currentId,
-        params
-      );
+      const res: any = await orderReq.updateOrderRequest(currentId, params);
       if (res?.code === 200) {
         dialogFormVisible.value = false;
         fetchData();
@@ -74,7 +71,7 @@ const addOrder = async () => {
 const delOrder = async () => {
   const ids = multipleSelection.value.map((item) => (item as any).id).join(",");
   try {
-    const res: any = await testprisma.order.delOrderRequest(ids);
+    const res: any = await orderReq.delOrderRequest(ids);
     if (res?.code === 200) {
       fetchData();
       ElMessage({

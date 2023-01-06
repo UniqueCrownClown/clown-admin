@@ -16,10 +16,14 @@ const obj = reactive({
 
 const title = ref("");
 onMounted(async () => {
-  const data = await fetch();
-  title.value = JSON.stringify(data);
   // 实例化
   const typed = new typer(obj, `落霞与孤鹜齐飞，秋水共长天一色。`);
+  try {
+    const data = await fetch();
+    title.value = JSON.stringify(data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 const fetch = async (): Promise<String[]> => {
   const api = new Api();
@@ -29,8 +33,12 @@ const fetch = async (): Promise<String[]> => {
 
 <template>
   <main>
-    <div w:p="y-20 x-4" w:font="leading-10" w:text="center size-30px">{{ obj.output }}</div>
-    <div w:m="y-10 x-4" w:text="center size-20px" w:font="mono light">testApi:{{ title }}</div>
+    <div w:p="y-20 x-4" w:font="leading-10" w:text="center size-30px">
+      {{ obj.output }}
+    </div>
+    <div w:m="y-10 x-4" w:text="center size-20px" w:font="mono light">
+      testApi:{{ title }}
+    </div>
     <div
       class="py-8 px-8 max-w-md mx-auto bg-white dark:bg-dark-200 rounded-xl shadow-md space-y-2 sm:(py-4 flex items-center space-y-0 space-x-6)"
     >
@@ -63,5 +71,4 @@ const fetch = async (): Promise<String[]> => {
     </div>
   </main>
 </template>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

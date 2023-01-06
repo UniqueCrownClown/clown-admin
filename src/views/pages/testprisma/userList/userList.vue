@@ -1,18 +1,8 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
 import { ElMessage, ElTable } from "element-plus";
-import testprisma from "@/api/testprisma";
-
-interface IUser {
-  name: string;
-  email: string;
-  isAdmin: boolean;
-}
-type IUserRes = IUser & {
-  id: number;
-  createdAt: string;
-  updatedAt: string;
-};
+import { userReq } from "@/api/testprisma";
+import type { IUser, IUserRes } from "@/types/ITestPrisma";
 
 const multipleTableRef = ref<InstanceType<typeof ElTable>>();
 const multipleSelection = ref<IUserRes[]>([]);
@@ -35,8 +25,7 @@ const form = reactive({
 });
 const fetchData = async () => {
   try {
-    const res: myLib.IResponseData<IUserRes[]> =
-      await testprisma.user.proRequest();
+    const res: myLib.IResponseData<IUserRes[]> = await userReq.proRequest();
     if (res?.code === 200) {
       tableData.value = res?.data;
     }
@@ -50,15 +39,18 @@ const dialogConfirm = async () => {
   };
   try {
     if (isNew.value) {
-      const res: myLib.IResponseData<IUserRes> =
-        await testprisma.user.addProRequest(params);
+      const res: myLib.IResponseData<IUserRes> = await userReq.addProRequest(
+        params
+      );
       if (res?.code === 200) {
         dialogFormVisible.value = false;
         fetchData();
       }
     } else {
-      const res: myLib.IResponseData<IUserRes> =
-        await testprisma.user.updateProRequest(currentId, params);
+      const res: myLib.IResponseData<IUserRes> = await userReq.updateProRequest(
+        currentId.toString(),
+        params
+      );
       if (res?.code === 200) {
         dialogFormVisible.value = false;
         fetchData();
@@ -80,8 +72,9 @@ const addUser = async () => {
 const delUser = async () => {
   const ids = multipleSelection.value.map((item) => item.id).join(",");
   try {
-    const res: myLib.IResponseData<IUserRes[]> =
-      await testprisma.user.delProRequest(ids);
+    const res: myLib.IResponseData<IUserRes[]> = await userReq.delProRequest(
+      ids
+    );
     if (res?.code === 200) {
       fetchData();
       ElMessage({

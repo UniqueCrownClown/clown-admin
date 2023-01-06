@@ -37,7 +37,7 @@ import { FormInstance } from "element-plus/es/components/form";
 import { FormRules } from "element-plus/es/tokens/form";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import { signinRequest } from "../../api/login";
+import { signinRequest } from "@/api/login";
 
 const bgImage = new URL(`../../assets/images/tree_planet.jpg`, import.meta.url)
   .href;

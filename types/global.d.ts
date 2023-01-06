@@ -5,5 +5,3 @@ declare namespace myLib {
     message: string;
   }
 }
-
-declare module "@/api/testprisma";

@@ -1,20 +1,8 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
 import { ElMessage, ElTable } from "element-plus";
-import testprisma from "@/api/testprisma";
-
-interface IProduct {
-  name: string;
-  price: string;
-  count: string;
-  image: string;
-  description: string;
-}
-type IProductRes = IProduct & {
-  id: number;
-  createdAt: string;
-  updatedAt: string;
-};
+import { productReq } from "@/api/testprisma";
+import type { IProduct, IProductRes } from "@/types/ITestPrisma";
 
 const multipleTableRef = ref<InstanceType<typeof ElTable>>();
 const multipleSelection = ref<IProductRes[]>([]);
@@ -40,8 +28,7 @@ const form = reactive({
 const fetchData = async () => {
   try {
     const res: myLib.IResponseData<IProductRes[]> =
-      await testprisma.product.proRequest();
-    console.log(res);
+      await productReq.proRequest();
     if (res?.code === 200) {
       tableData.value = res?.data;
     }
@@ -58,14 +45,14 @@ const dialogConfirm = async () => {
   try {
     if (isNew.value) {
       const res: myLib.IResponseData<IProductRes> =
-        await testprisma.product.addProRequest(params);
+        await productReq.addProRequest(params);
       if (res?.code === 200) {
         dialogFormVisible.value = false;
         fetchData();
       }
     } else {
       const res: myLib.IResponseData<IProductRes> =
-        await testprisma.product.updateProRequest(currentId, params);
+        await productReq.updateProRequest(currentId.toString(), params);
       if (res?.code === 200) {
         dialogFormVisible.value = false;
         fetchData();
@@ -90,7 +77,7 @@ const delProduct = async () => {
   const ids = multipleSelection.value.map((item) => item.id).join(",");
   try {
     const res: myLib.IResponseData<IProductRes[]> =
-      await testprisma.product.delProRequest(ids);
+      await productReq.delProRequest(ids);
     if (res?.code === 200) {
       fetchData();
       ElMessage({

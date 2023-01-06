@@ -31,7 +31,7 @@ const menu = [
     children: [
       {
         name: "typer",
-        url: "/src/views/pages/testmodule/test1.vue",
+        url: "/src/views/pages/testmodule/testTyper.vue",
         path: "/typer-typer",
         meta: {
           id: "typer",
@@ -46,7 +46,7 @@ const menu = [
       },
       {
         name: "sakura",
-        url: "/src/views/pages/testmodule/test2.vue",
+        url: "/src/views/pages/testmodule/testSakura.vue",
         path: "/sakura-sakura",
         meta: {
           id: "sakura",
@@ -57,6 +57,21 @@ const menu = [
           isKeepAlive: true,
           title_cn: "樱花",
           title_en: "sakura",
+        },
+      },
+      {
+        name: "useList",
+        url: "/src/views/pages/testmodule/testUseList.vue",
+        path: "/test-useList",
+        meta: {
+          id: "useList",
+          auth: ["admin", "test"],
+          icon: "carbon:rule-test",
+          isAffix: true,
+          isHide: false,
+          isKeepAlive: true,
+          title_cn: "useList",
+          title_en: "useList",
         },
       },
     ],

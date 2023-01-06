@@ -1,11 +1,6 @@
-import * as product from "./product.api";
-import * as order from "./order.api";
-import * as address from "./address.api";
-import * as user from "./user.api";
+import * as userReq from "./user.api";
+import * as productReq from "./product.api";
+import * as orderReq from "./order.api";
+import * as addressReq from "./address.api";
 
-export default {
-  product,
-  order,
-  address,
-  user
-};
+export { userReq, addressReq, productReq, orderReq };

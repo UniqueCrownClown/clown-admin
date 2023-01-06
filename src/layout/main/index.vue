@@ -52,7 +52,7 @@ import sideBar from "./sideBar";
 import tabBar from "./tabBar.vue";
 import mainView from "./mainView.vue";
 import { computed, reactive, ref, toRefs } from "vue";
-import router, { resetRoute } from "@/router";
+import router, { resetRoute } from "@/router/index";
 import { ThemeMode } from "@/utils/dictionary";
 import { useThemeStore } from "@/stores/modules/theme";
 const themeStore = useThemeStore();

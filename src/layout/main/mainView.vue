@@ -3,7 +3,7 @@
     <router-view v-slot="{ Component }">
       <transition name="slide-right" mode="out-in">
         <keep-alive :include="keepAliveNameList">
-          <component :is="Component" class="w100" />
+          <component :is="Component" class="w-full" />
         </keep-alive>
       </transition>
     </router-view>
