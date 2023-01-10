@@ -63,7 +63,7 @@ const sideBar: any = defineComponent({
     const menuMain = () => (
       <el-menu
         router
-        default-active={active}
+        default-active={active.value}
         class="el-menu-vertical-demo"
         collapse={props.isCollapse}
       >
