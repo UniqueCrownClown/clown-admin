@@ -2,6 +2,7 @@
 import { onMounted, reactive, ref } from "vue";
 import { ElMessage, ElTable } from "element-plus";
 import { addressReq } from "@/api/testprisma";
+import { dayjs } from "element-plus";
 
 interface IOrder {
   name: string;
@@ -121,11 +122,7 @@ onMounted(() => {
       <el-table
         ref="multipleTableRef"
         :data="tableData"
-        style="
-           {
-            width: 100%;
-          }
-        "
+        class="w-full"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
@@ -134,7 +131,9 @@ onMounted(() => {
         <el-table-column property="detail" label="详细地址" width="120" />
         <el-table-column property="isDefault" label="是否默认" width="120" />
         <el-table-column property="createdAt" label="createdAt" width="120">
-          <template #default="scope">{{ scope.row.createdAt }}</template>
+          <template #default="scope">{{
+            dayjs(scope.row.createdAt).format("YYYY-MM-DD HH:mm:ss")
+          }}</template>
         </el-table-column>
       </el-table></el-main
     >

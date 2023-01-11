@@ -133,7 +133,11 @@ onMounted(() => {
         <el-table-column type="selection" width="55" />
         <el-table-column property="name" label="商品名称" width="120" />
         <el-table-column property="description" label="商品描述" width="120" />
-        <el-table-column property="image" label="商品路径" width="120" />
+        <el-table-column property="image" label="商品图片" width="120">
+          <template #default="scope"
+            ><img :src="scope.row.image" alt="图片无法显示"
+          /></template>
+        </el-table-column>
         <el-table-column property="price" label="商品价格" width="120" />
         <el-table-column property="count" label="商品库存" width="120">
           <template #default="scope">{{ scope.row.count }}</template>

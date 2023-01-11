@@ -2,6 +2,7 @@
 import { onMounted, reactive, ref } from "vue";
 import { ElMessage, ElTable } from "element-plus";
 import { orderReq } from "@/api/testprisma";
+import { dayjs } from "element-plus";
 
 interface IOrder {
   amount: string;
@@ -114,11 +115,7 @@ onMounted(() => {
       <el-table
         ref="multipleTableRef"
         :data="tableData"
-        style="
-           {
-            width: 100%;
-          }
-        "
+        class="w-full"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
@@ -129,7 +126,9 @@ onMounted(() => {
           width="120"
         />
         <el-table-column property="createdAt" label="createdAt" width="120">
-          <template #default="scope">{{ scope.row.createdAt }}</template>
+          <template #default="scope">{{
+            dayjs(scope.row.createdAt).format("YYYY-MM-DD HH:mm:ss")
+          }}</template>
         </el-table-column>
       </el-table></el-main
     >
