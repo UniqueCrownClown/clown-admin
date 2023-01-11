@@ -23,7 +23,7 @@ const dialogFormVisible = ref(false);
 const formLabelWidth = "140px";
 
 const form = reactive({
-  amount: "",
+  amount: "0",
   description: "",
 });
 const fetchData = async () => {
@@ -63,7 +63,7 @@ const dialogConfirm = async () => {
 const addOrder = async () => {
   isNew.value = true;
   Object.assign(form, {
-    amount: "",
+    amount: "0",
     description: "",
   });
   dialogFormVisible.value = true;

@@ -3,7 +3,7 @@
     <el-tabs
       class="margin_b-1"
       type="card"
-      v-model="active"
+      v-model="activeName"
       @tab-click="clickHandle"
       @tab-remove="removeHandle"
     >
@@ -25,12 +25,17 @@ import { storeToRefs } from "pinia";
 
 import { useTabsStore } from "@/stores/modules/tabs";
 import type { TabsPaneContext } from "element-plus";
+import { computed } from "@vue/reactivity";
 
 const router = useRouter();
 const route = useRoute();
 const tabsStore = useTabsStore();
 
 const { active, tabs } = storeToRefs(tabsStore);
+
+const activeName = computed(() =>
+  active.value.substring(active.value.indexOf("/") + 1)
+);
 
 /**
  * 点击跳转
@@ -47,18 +52,18 @@ const clickHandle = ({ index }: TabsPaneContext) => {
 /**
  * 移除标签
  */
-const removeHandle = (name:string) => {
+const removeHandle = (name: string) => {
   tabsStore.removeHandle([name]);
 };
 
 onBeforeRouteUpdate((to) => {
-  tabsStore.changeHandle(to)
-  const meta = to.meta
-})
+  tabsStore.changeHandle(to);
+  const meta = to.meta;
+});
 
 onBeforeMount(() => {
-  tabsStore.changeHandle(route)
-})
+  tabsStore.changeHandle(route);
+});
 </script>
 
 <style lang="scss" scoped>
