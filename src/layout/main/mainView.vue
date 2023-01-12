@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-const keepAliveNameList = ref(/about/);
+const keepAliveNameList = ref(/AboutView/);
 </script>
 <style lang="scss">
 .tab-main-container {

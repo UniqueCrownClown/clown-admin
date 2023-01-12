@@ -33,11 +33,10 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { FormInstance } from "element-plus/es/components/form";
-import { FormRules } from "element-plus/es/tokens/form";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { signinRequest } from "@/api/login";
+import type { FormInstance, FormRules } from "element-plus";
 
 const bgImage = new URL(`../../assets/images/tree_planet.jpg`, import.meta.url)
   .href;
@@ -81,7 +80,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
 };
-const toHome = (token) => {
+const toHome = (token: string) => {
   localStorage.setItem("token", token);
   router.push({
     //传递参数使用query的话，指定path或者name都行，但使用params的话，只能使用name指定
