@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, type RawAxiosRequestHeaders } from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { ElMessage, ElMessageBox } from "element-plus";
 
@@ -22,7 +22,8 @@ const service: AxiosInstance = axios.create({
 service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     if (getSession("token")) {
-      config.headers.Authorization = "Bearer " + getSession("token");
+      (config.headers as RawAxiosRequestHeaders).Authorization =
+        "Bearer " + getSession("token");
     }
     return config;
   },

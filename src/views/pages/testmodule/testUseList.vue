@@ -52,7 +52,11 @@
           {{ scope.row.email || "未绑定邮箱地址" }}
         </template>
       </el-table-column>
-      <el-table-column prop="createAt" label="注册时间" min-width="220px" />
+      <el-table-column prop="createdAt" label="注册时间" min-width="220px">
+        <template #default="scope">{{
+          dayjs(scope.row.createdAt).format("YYYY-MM-DD HH:mm:ss")
+        }}</template>
+      </el-table-column>
       <el-table-column width="200px" fixed="right" label="操作">
         <template #default="scope">
           <el-button type="primary" link @click="detail(scope.row)"
@@ -74,6 +78,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { dayjs } from "element-plus";
 import useList from "@/composables/useList";
 import { ref } from "vue";
 import { userReq as UserInfoApi } from "@/api/testprisma";
@@ -89,7 +94,7 @@ const {
   total,
   loadData,
 } = useList<UserInfoApi.UserInfo[], UserInfoApi.FilterOptionType>(
-  UserInfoApi.proRequest2,
+  UserInfoApi.proAllRequest,
   filterOption
 );
 const detail = (rowData: any) => {

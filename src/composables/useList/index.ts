@@ -55,10 +55,12 @@ export default function useList<
     try {
       preRequest?.();
       const {
-        data,
-        meta: { total: count },
+        data: {
+          records,
+          meta: { totalCount: count },
+        },
       } = await listRequestFn(pageSize.value, page, filterOption.value);
-      list.value = data;
+      list.value = records;
       total.value = count;
       options?.requestSuccess?.();
     } catch (error) {

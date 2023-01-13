@@ -55,12 +55,15 @@ import { computed, reactive, ref, toRefs } from "vue";
 import router, { resetRoute } from "@/router/index";
 import { ThemeMode } from "@/utils/dictionary";
 import { useThemeStore } from "@/stores/modules/theme";
+import { useRootStore } from "@/stores/root";
 const themeStore = useThemeStore();
 const state = reactive({
   circleUrl:
     "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
 });
 const toLogin = () => {
+  const root = useRootStore();
+  root.logout();
   window.localStorage.removeItem("token");
   router.push({
     path: "/login",
