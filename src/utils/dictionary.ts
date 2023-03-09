@@ -1,5 +1,5 @@
 // 主题模式
-export const ThemeMode:any = {
-  DARK: "dark",
-  LIGHT: "light",
-};
+export enum ThemeMode {
+  DARK = "dark",
+  LIGHT = "light",
+}
